@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Table = () => {
+  const [formInfo, setFormInfo] = useState([]);
+
+  useEffect(() => {
+    fetch("https://redpositive-service-server.vercel.app/info")
+      .then((res) => res.json())
+      .then((data) => setFormInfo(data));
+  }, []);
+
   return (
     <div className="w-full">
       <h1 className="text-5xl font-bold text-center mt-10 mb-2">Table</h1>
@@ -18,24 +26,24 @@ const Table = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th><label><input type="checkbox" className="checkbox" /></label></th>
-              <td>1</td>
-              <td>Bikash Chandra Dey</td>
-              <td>+8801812203014</td>
-              <td>bikashdey1220@gmail.com</td>
-              <td>Coding</td>
-              <th><button className="btn btn-ghost btn-xs">Update</button></th>
-            </tr>
-            <tr>
-              <th><label><input type="checkbox" className="checkbox" /></label></th>
-              <td>2</td>
-              <td>Bikash Chandra Dey</td>
-              <td>+8801812203014</td>
-              <td>bikashdey1220@gmail.com</td>
-              <td>Coding</td>
-              <th><button className="btn btn-ghost btn-xs">Update</button></th>
-            </tr>
+            {formInfo &&
+              formInfo.map((info, i) => (
+                <tr key={info?._id}>
+                  <th>
+                    <label>
+                      <input type="checkbox" className="checkbox" />
+                    </label>
+                  </th>
+                    <td>{i + 1}</td>
+                  <td>{info?.name}</td>
+                  <td>{info?.number}</td>
+                  <td>{info?.email}</td>
+                  <td>{info?.hobbies}</td>
+                  <th>
+                    <button className="btn btn-ghost btn-xs">Update</button>
+                  </th>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
