@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import Loader from "./Loader";
 
 const Table = () => {
   const [formInfo, setFormInfo] = useState([]);
@@ -8,6 +10,41 @@ const Table = () => {
       .then((res) => res.json())
       .then((data) => setFormInfo(data));
   }, []);
+
+  const handleMakeUpdate = (id) => {
+    fetch(`https://redpositive-service-server.vercel.app/info/${id}`, {
+      method: "PUT",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+        if (result.modifiedCount > 0) {
+          toast.success("Make Updated Successful.");
+          alert("Make Updated Successful.");
+          <Loader></Loader>;
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const handleDelete = (id) => {
+    console.log("deleting data", id);
+    fetch(`https://redpositive-service-server.vercel.app/info/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+          console.log("Success:", result);
+          if (result.deletedCount > 0) {
+              alert('Deleted Successfully');
+          }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <div className="w-full">
@@ -23,6 +60,7 @@ const Table = () => {
               <th>Email</th>
               <th>Hobbies</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -34,14 +72,29 @@ const Table = () => {
                       <input type="checkbox" className="checkbox" />
                     </label>
                   </th>
-                    <td>{i + 1}</td>
+                  <td>{i + 1}</td>
                   <td>{info?.name}</td>
                   <td>{info?.number}</td>
                   <td>{info?.email}</td>
                   <td>{info?.hobbies}</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">Update</button>
-                  </th>
+                  <td>
+                    {info?.plot !== "updated" && (
+                      <button
+                        onClick={() => handleMakeUpdate(info._id)}
+                        className="btn btn-ghost btn-xs"
+                      >
+                        Make Update
+                      </button>
+                    )}
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDelete(info._id)}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>
