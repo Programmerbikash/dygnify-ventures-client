@@ -36,7 +36,7 @@ const Table = () => {
     })
       .then((response) => response.json())
       .then((result) => {
-          console.log("Success:", result);
+        //   console.log("Success:", result);
           if (result.deletedCount > 0) {
               alert('Deleted Successfully');
           }
@@ -50,7 +50,7 @@ const Table = () => {
     <div className="w-full">
       <h1 className="text-5xl font-bold text-center mt-10 mb-2">Table</h1>
       <div className="overflow-x-auto w-full">
-        <table className="table w-5/6 mx-auto mb-20">
+        <table className="table w-5/6 mx-auto mb-8">
           <thead>
             <tr>
               <th>Select</th>
@@ -81,7 +81,7 @@ const Table = () => {
                     {info?.plot !== "updated" && (
                       <button
                         onClick={() => handleMakeUpdate(info._id)}
-                        className="btn btn-ghost btn-xs"
+                        className="btn btn-primary p-2 text-center btn-sm font-bold"
                       >
                         Make Update
                       </button>
@@ -90,7 +90,7 @@ const Table = () => {
                   <td>
                     <button
                       onClick={() => handleDelete(info._id)}
-                      className="btn btn-ghost btn-xs"
+                      className="btn btn-success p-2 font-bold btn-sm"
                     >
                       Delete
                     </button>

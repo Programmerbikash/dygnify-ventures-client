@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const Form = () => {
 
@@ -25,7 +26,9 @@ const Form = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+              console.log(data);
+              alert("Added Successful");
+              toast.success("Successful!")
             })
     
     console.log(formInfo);
@@ -34,7 +37,7 @@ const Form = () => {
 
   return (
     <div className="w-full">
-      <div className="w-32 mt-20 mx-auto">
+      <div className="w-32 mb-14 mx-auto">
       <label
         htmlFor="form-modal"
         className="btn w-32 bg-blue-600 text-white p-4 font-bold mt-4 text-center mx-auto"
