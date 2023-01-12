@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import SignIn from "../Components/SignIn";
-import Home from "../Home/Home";
 import Main from "../Layout/Main";
+import Past from "../Pages/Events/Past/Past";
+import Upcoming from '../Pages/Events/Upcoming/Upcoming'
+import Home from "../Pages/Home/Home/Home";
+import JobBoards from "../Pages/JobBoards/JobBoards";
+
+// https://joinnova.co/jobs
 
 export const router = createBrowserRouter([
     {
@@ -13,8 +17,16 @@ export const router = createBrowserRouter([
           element: <Home />,
         },
         {
-          path: "/signIn",
-          element: <SignIn />,
+          path: "/upcoming",
+          element: <Upcoming />,
+        },
+        {
+          path: "/past",
+          element: <Past />,
+        },
+        {
+          path: "/jobBoards",
+          element: <JobBoards />,
         },
       ],
     },
